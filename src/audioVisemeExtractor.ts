@@ -1,95 +1,7 @@
 import type { OculusViseme, VisemeKey, VisemeTimeline } from './types';
 
-/**
- * Phoneme to viseme mapping based on standard phoneme classification
- * Maps common phonemes to Oculus visemes
- */
-const PHONEME_TO_VISEME: { [phoneme: string]: OculusViseme } = {
-  // Silence
-  'sil': 'sil',
-  'sp': 'sil',
-  
-  // PP - p, b, m
-  'p': 'PP',
-  'b': 'PP',
-  'm': 'PP',
-  
-  // FF - f, v
-  'f': 'FF',
-  'v': 'FF',
-  
-  // TH - th
-  'θ': 'TH', // theta
-  'ð': 'TH', // eth
-  
-  // DD - t, d, s, z
-  't': 'DD',
-  'd': 'DD',
-  's': 'DD',
-  'z': 'DD',
-  
-  // kk - k, g
-  'k': 'kk',
-  'g': 'kk',
-  'ŋ': 'kk', // ng
-  
-  // CH - ch, j
-  'tʃ': 'CH', // ch
-  'dʒ': 'CH', // j
-  
-  // SS - s, z (similar to DD but with emphasis)
-  'ʃ': 'SS', // sh
-  'ʒ': 'SS', // zh
-  
-  // nn - n, l
-  'n': 'nn',
-  'l': 'nn',
-  
-  // RR - r
-  'r': 'RR',
-  'ɹ': 'RR',
-  
-  // aa - a, æ, ɑ
-  'a': 'aa',
-  'æ': 'aa',
-  'ɑ': 'aa',
-  'ʌ': 'aa', // uh
-  
-  // E - e, ɛ
-  'e': 'E',
-  'ɛ': 'E',
-  'ə': 'E', // schwa
-  
-  // ih - i, ɪ
-  'i': 'ih',
-  'ɪ': 'ih',
-  
-  // oh - o, ɔ
-  'o': 'oh',
-  'ɔ': 'oh',
-  
-  // ou - u, ʊ
-  'u': 'ou',
-  'ʊ': 'ou',
-};
-
-/**
- * English phoneme to viseme mapping (IPA to Oculus)
- * This is a simplified mapping - real phoneme detection would be more complex
- */
-const ENGLISH_PHONEME_MAP: { [key: string]: OculusViseme } = {
-  // Vowels
-  'AA': 'aa', 'AE': 'aa', 'AH': 'aa', 'AO': 'oh', 'AW': 'ou',
-  'AY': 'aa', 'EH': 'E', 'ER': 'RR', 'EY': 'E', 'IH': 'ih',
-  'IY': 'ih', 'OW': 'oh', 'OY': 'oh', 'UH': 'ou', 'UW': 'ou',
-  
-  // Consonants
-  'B': 'PP', 'CH': 'CH', 'D': 'DD', 'DH': 'TH', 'F': 'FF',
-  'G': 'kk', 'HH': 'sil', 'JH': 'CH', 'K': 'kk', 'L': 'nn',
-  'M': 'PP', 'N': 'nn', 'NG': 'kk', 'P': 'PP', 'R': 'RR',
-  'S': 'SS', 'SH': 'SS', 'T': 'DD', 'TH': 'TH', 'V': 'FF',
-  'W': 'ou', 'Y': 'ih', 'Z': 'SS', 'ZH': 'SS',
-};
+// Note: Phoneme to viseme mappings are not currently used in the implementation
+// but kept for potential future use in more sophisticated phoneme detection
 
 /**
  * Analyzes audio buffer to extract viseme timeline
@@ -287,7 +199,7 @@ function findFormants(fft: Float32Array, sampleRate: number): { f1: number; f2: 
 function classifyViseme(
   formants: { f1: number; f2: number; f3: number },
   rms: number,
-  time: number
+  _time: number
 ): OculusViseme {
   const { f1, f2 } = formants;
   

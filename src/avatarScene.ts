@@ -473,7 +473,6 @@ export class AvatarScene {
       const visemeLower = viseme.toLowerCase();
       
       // Try exact match first - be very specific to avoid false matches
-      let found = false;
       for (const [name, index] of Object.entries(dictionary)) {
         const nameLower = name.toLowerCase();
         
@@ -484,32 +483,27 @@ export class AvatarScene {
         
         if (nameLower === exactPattern1 || nameLower === exactPattern2) {
           this.visemeMorphTargets.set(viseme, index);
-          found = true;
           break;
         }
         
         // Handle specific case variations for single-letter visemes
         if (viseme === 'E' && (nameLower === 'viseme_e' || nameLower === 'visemee' || nameLower === 'viseme_e')) {
           this.visemeMorphTargets.set(viseme, index);
-          found = true;
           break;
         }
         
         if (viseme === 'ih' && (nameLower === 'viseme_i' || nameLower === 'viseme_ih' || nameLower === 'visemeih')) {
           this.visemeMorphTargets.set(viseme, index);
-          found = true;
           break;
         }
         
         if (viseme === 'oh' && (nameLower === 'viseme_o' || nameLower === 'viseme_oh' || nameLower === 'visemeoh')) {
           this.visemeMorphTargets.set(viseme, index);
-          found = true;
           break;
         }
         
         if (viseme === 'ou' && (nameLower === 'viseme_u' || nameLower === 'viseme_ou' || nameLower === 'visemeou')) {
           this.visemeMorphTargets.set(viseme, index);
-          found = true;
           break;
         }
       }
@@ -769,7 +763,7 @@ export class AvatarScene {
       // Create and play new animation with fade in
       const action = this.animationMixer.clipAction(clip);
       action.reset();
-      action.setLoop(THREE.LoopRepeat);
+      action.setLoop(THREE.LoopRepeat, Infinity);
       action.enabled = true;
       action.fadeIn(fadeDuration);
       action.play();

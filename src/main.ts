@@ -19,8 +19,8 @@ if (!container) {
 const avatarScene = new AvatarScene(container);
 const avatarControls = avatarScene.getControls();
 
-// Track current state for UI
-let currentState: 'idle' | 'talking' | 'listening' = 'idle';
+// Track current state for UI (unused but kept for potential future use)
+// let currentState: 'idle' | 'talking' | 'listening' = 'idle';
 
 // Load the avatar and animations
 avatarScene.loadAvatar().then(async () => {
@@ -83,7 +83,7 @@ avatarScene.loadAvatar().then(async () => {
 });
 
 // Setup volume-based audio playback button
-const playButton = document.getElementById('play-audio');
+const playButton = document.getElementById('play-audio') as HTMLButtonElement;
 if (!playButton) {
   throw new Error('Play audio button not found');
 }
@@ -116,14 +116,12 @@ playButton.addEventListener('click', async () => {
     
     // Audio finished - switch back to idle
     avatarControls.setState('idle');
-    currentState = 'idle';
     updateStateButtons('idle');
   } catch (error) {
     console.error('Error playing audio:', error);
     alert('Failed to play audio. Please check the console for details.');
     // On error, also switch back to idle
     avatarControls.setState('idle');
-    currentState = 'idle';
     updateStateButtons('idle');
   } finally {
     // Re-enable button
@@ -133,7 +131,7 @@ playButton.addEventListener('click', async () => {
 });
 
 // Setup viseme-based audio playback button
-const analyzeButton = document.getElementById('analyze-visemes');
+const analyzeButton = document.getElementById('analyze-visemes') as HTMLButtonElement;
 if (!analyzeButton) {
   throw new Error('Analyze visemes button not found');
 }
@@ -168,14 +166,12 @@ analyzeButton.addEventListener('click', async () => {
     
     // Audio finished - switch back to idle
     avatarControls.setState('idle');
-    currentState = 'idle';
     updateStateButtons('idle');
   } catch (error) {
     console.error('Error analyzing/playing audio with visemes:', error);
     alert('Failed to analyze or play audio with visemes. Please check the console for details.');
     // On error, also switch back to idle
     avatarControls.setState('idle');
-    currentState = 'idle';
     updateStateButtons('idle');
   } finally {
     // Re-enable button
@@ -206,19 +202,16 @@ function updateStateButtons(activeState: 'idle' | 'talking' | 'listening') {
 
 // Wire up state buttons
 stateButtons.idle?.addEventListener('click', () => {
-  currentState = 'idle';
   avatarControls.setState('idle');
   updateStateButtons('idle');
 });
 
 stateButtons.talking?.addEventListener('click', () => {
-  currentState = 'talking';
   avatarControls.setState('talking');
   updateStateButtons('talking');
 });
 
 stateButtons.listening?.addEventListener('click', () => {
-  currentState = 'listening';
   avatarControls.setState('listening');
   updateStateButtons('listening');
 });

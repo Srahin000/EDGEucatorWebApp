@@ -28,7 +28,6 @@ const RHUBARB_TO_OCULUS: { [key: string]: OculusViseme } = {
   'U': 'ou',   // u
   'V': 'FF',   // v
   'W': 'ou',   // w
-  'X': 'SS',   // x (ks sound)
   'Y': 'ih',   // y
   'Z': 'SS',   // z
 };
