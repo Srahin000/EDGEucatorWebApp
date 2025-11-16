@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Mentor Avatar - Three.js + Ready Player Me</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+
+    #ui {
+      padding: 1.5rem;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      color: #e2e8f0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      flex-shrink: 0;
+    }
+
+    #ui h1 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #play-audio {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      font-weight: 500;
+    }
+
+    #play-audio:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #play-audio:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    #play-audio:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #analyze-visemes {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      font-weight: 500;
+    }
+
+    #analyze-visemes:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #analyze-visemes:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    #analyze-visemes:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button-group {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .state-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
+      background: rgba(148, 163, 184, 0.2);
+      border: 2px solid rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .state-button:hover {
+      background: rgba(148, 163, 184, 0.3);
+      border-color: rgba(148, 163, 184, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .state-button.active {
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: #8b5cf6;
+      color: white;
+      box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .state-button.active:hover {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    }
+
+    #avatar-container {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 140px);
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <h1>AI Mentor Avatar (Three.js + Ready Player Me)</h1>
+    <div>
+      <button id="play-audio">Play Sample Audio (Volume-based)</button>
+      <button id="analyze-visemes" style="margin-left: 1rem;">Analyze & Play with Visemes</button>
+    </div>
+    <div class="button-group">
+      <button id="state-idle" class="state-button active">Idle</button>
+      <button id="state-talking" class="state-button">Talking</button>
+      <button id="state-listening" class="state-button">Listening</button>
+    </div>
+  </div>
+  <div id="avatar-container"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
