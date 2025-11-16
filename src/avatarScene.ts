@@ -4,7 +4,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import type { AvatarMesh, AvatarSceneControls, AvatarState, BonePose, OculusViseme } from './types';
 
-const AVATAR_URL = 'https://models.readyplayer.me/690eb2ad132e61458c0d2adb.glb?morphTargets=ARKit,Oculus Visemes';
+const AVATAR_URL = '/avatar/690eb2ad132e61458c0d2adb.glb';
 
 /**
  * Creates and manages the Three.js scene with the Ready Player Me avatar
